@@ -6,7 +6,7 @@
 #    By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/21 23:59:55 by geonwkim          #+#    #+#              #
-#    Updated: 2024/09/21 23:59:56 by geonwkim         ###   ########.fr        #
+#    Updated: 2024/11/01 23:42:38 by geonwkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,15 @@ CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
 all: $(NAME)
 
+%.o: %.cpp
+	$(CPP) $(CPPFLAGS) -c $< -o $@
+
+
 $(NAME): $(OBJ)
 	$(CPP) $(CPPFLAGS) -o $(NAME) $(OBJ)
+
+test:
+	$(CPP) $(CPPFLAGS) -o $(NAME) tests.cpp
 
 clean:
 	rm -f $(OBJ)
