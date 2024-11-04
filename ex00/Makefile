@@ -6,7 +6,7 @@
 #    By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/21 23:59:55 by geonwkim          #+#    #+#              #
-#    Updated: 2024/11/04 20:15:26 by geonwkim         ###   ########.fr        #
+#    Updated: 2024/11/04 20:18:10 by geonwkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ all: $(NAME)
 
 %.o: %.cpp
 	$(CPP) $(CPPFLAGS) -c $< -o $@
-
 
 $(NAME): $(OBJ)
 	$(CPP) $(CPPFLAGS) -o $(NAME) $(OBJ)

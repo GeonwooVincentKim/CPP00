@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 00:00:11 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/22 00:00:16 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/11/04 22:06:39 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ Account::Account(int initial_deposit) : _accountIndex(_nbAccounts), _amount(init
     _nbAccounts++;
     _totalAmount += initial_deposit;
     _displayTimestamp();
-    std::cout << " index:" << _accountIndex << ";amount:" << _amount << ";created" << std::endl;
+    std::cout << "index:" << _accountIndex << ";amount:" << _amount << ";created" << std::endl;
 }
 
 // Destructor
 Account::~Account(void) {
     _displayTimestamp();
-    std::cout << " index:" << _accountIndex << ";amount:" << _amount << ";closed" << std::endl;
+    std::cout << "index:" << _accountIndex << ";amount:" << _amount << ";closed" << std::endl;
     _nbAccounts--;
 }
 
