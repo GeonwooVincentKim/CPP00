@@ -13,6 +13,26 @@
 #include "PhoneBook.hpp"
 #include <iostream>
 #include <string>
+#include <limits>
+#include <cctype>
+
+bool getInput(const std::string &prompt, std::string &input) {
+    std::cout << prompt;
+    if (!std::getline(std::cin, input) || input.empty()) {
+        std::cout << "Error: Input cannot be empty." << std::endl;
+        return false;
+    }
+    return true;
+}
+
+bool isValidPhoneNumber(const std::string &phoneNumber) {
+    for (std::string::size_type i = 0; i < phoneNumber.length(); ++i) {
+        if (!std::isdigit(phoneNumber[i])) {
+            return false;
+        }
+    }
+    return true;
+}
 
 int main() {
     PhoneBook phoneBook;
@@ -20,30 +40,35 @@ int main() {
 
     while (true) {
         std::cout << "Enter a command (ADD, SEARCH, EXIT): ";
-        std::getline(std::cin, command);
+        if (!std::getline(std::cin, command)) {
+            std::cout << "Error reading input." << std::endl;
+            break;
+        }
 
         if (command == "ADD") {
             Contact newContact;
             std::string input;
 
-            std::cout << "Enter first name: ";
-            std::getline(std::cin, input);
+            if (!getInput("Enter first name: ", input)) continue;
             newContact.setFirstName(input);
 
-            std::cout << "Enter last name: ";
-            std::getline(std::cin, input);
+            if (!getInput("Enter last name: ", input)) continue;
             newContact.setLastName(input);
 
-            std::cout << "Enter nickname: ";
-            std::getline(std::cin, input);
+            if (!getInput("Enter nickname: ", input)) continue;
             newContact.setNickname(input);
 
-            std::cout << "Enter phone number: ";
-            std::getline(std::cin, input);
+            do {
+                if (!getInput("Enter phone number: ", input)) continue;
+                if (!isValidPhoneNumber(input)) {
+                    std::cout << "Error: Phone number must contain only digits." << std::endl;
+                } else {
+                    break;
+                }
+            } while (true);
             newContact.setPhoneNumber(input);
 
-            std::cout << "Enter darkest secret: ";
-            std::getline(std::cin, input);
+            if (!getInput("Enter darkest secret: ", input)) continue;
             newContact.setDarkestSecret(input);
 
             phoneBook.addContact(newContact);
@@ -53,10 +78,15 @@ int main() {
 
             std::cout << "Enter the index of the contact to display: ";
             int index;
-            std::cin >> index;
-            std::cin.ignore(); // Ignore the newline after entering the number
+            if (!(std::cin >> index)) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid index." << std::endl;
+                continue;
+            }
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-            phoneBook.displayContactDetails(index - 1); // Adjusting index for 0-based array
+            phoneBook.displayContactDetails(index - 1);
         } 
         else if (command == "EXIT") {
             break;
