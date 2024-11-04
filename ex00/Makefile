@@ -28,3 +28,7 @@ fclean:
 	rm -f $(NAME)
 
 re: fclean all
+
+test:
+	dos2unix ../cpp00_tester/bash.sh
+	bash ../cpp00_tester/bash.sh
